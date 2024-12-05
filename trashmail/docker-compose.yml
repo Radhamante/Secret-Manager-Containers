@@ -1,0 +1,31 @@
+networks:
+  traefik_proxy:
+    external: true
+services:
+  opentrashmail:
+    image: hascheksolutions/opentrashmail:1
+    container_name: opentrashmail
+    restart: unless-stopped
+    environment:
+      - DOMAINS=trashmail.radhamante.xyz
+      - DATEFORMAT=D.M.YYYY HH:mm
+      - DISCARD_UNKNOWN=false
+      - DELETE_OLDER_THAN_DAYS=30
+      - URL=127.0.0.1:8111
+      - PASSWORD=BuMr2V74WHtsx
+      - ATTACHMENTS_MAX_SIZE=1000000
+      - ADMIN=a@a.a
+    volumes:
+      - ./data:/var/www/opentrashmail/data
+    ports:
+      - 25:25
+      - 8111:80
+    networks:
+      - traefik_proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.trashmail.rule=Host(`trashmail.radhamante.xyz`)"
+      - "traefik.http.routers.trashmail.entrypoints=websecure"
+      - "traefik.http.routers.trashmail.tls=true"
+      - "traefik.http.routers.trashmail.tls.certresolver=myresolver"
+      - "traefik.http.services.trashmail.loadbalancer.server.port=80"

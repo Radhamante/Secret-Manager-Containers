@@ -1,0 +1,25 @@
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+  mail:
+    address: ":25"
+
+certificatesResolvers:
+  myresolver:
+    acme:
+      email: billydd129@gmail.com
+      storage: /letsencrypt/acme.json
+      httpChallenge:
+        entryPoint: web
+
+log:
+  level: DEBUG
+
+api:
+  dashboard: true
+
+providers:
+  docker:
+    exposedByDefault: false

@@ -1,0 +1,29 @@
+
+networks:
+  traefik_proxy:
+    external: true # Assure que le réseau "traefik_proxy" est déjà créé
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    networks:
+      traefik_proxy:
+        ipv4_address: 192.168.1.101 # IP fixe pour le conteneur
+    ports:
+      - "9000:9000" # Optionnel, pour accès direct sans Traefik (peut être supprimé)
+      - "9443:9443" # Optionnel, pour accès direct sans Traefik (peut être supprimé)
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # Pour gérer Docker
+      - portainer_data:/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portainer.rule=Host(`portainer.radhamante.xyz`)"
+      - "traefik.http.routers.portainer.entrypoints=websecure"
+      - "traefik.http.routers.portainer.tls=true"
+      - "traefik.http.routers.portainer.tls.certresolver=myresolver"
+      - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+
+volumes:
+  portainer_data:
