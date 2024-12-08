@@ -6,6 +6,13 @@ entryPoints:
   mail:
     address: ":25"
 
+accessLog:
+  filePath: "/var/log/traefik/access.log"
+
+metrics: 
+  prometheus: {}
+
+
 certificatesResolvers:
   myresolver:
     acme:
@@ -14,12 +21,16 @@ certificatesResolvers:
       httpChallenge:
         entryPoint: web
 
-log:
-  level: DEBUG
-
 api:
   dashboard: true
 
 providers:
   docker:
     exposedByDefault: false
+
+
+experimental:
+  plugins:
+    bouncer:
+      moduleName: github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin
+      version: "v1.3.5" # To update
