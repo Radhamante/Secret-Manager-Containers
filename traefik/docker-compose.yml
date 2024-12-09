@@ -23,6 +23,9 @@ services:
       - "traefik.http.routers.traefik-dashboard.tls=true"
       - "traefik.http.routers.traefik-dashboard.tls.certresolver=myresolver"
       - "traefik.http.routers.traefik-dashboard.service=api@internal"
+      - "traefik.http.routers.traefik-dashboard.middlewares=auth@docker"
+      - "traefik.http.middlewares.auth.basicauth.users=admin:$$2y$$10$$toMVgp6OO38R0LXAigbIFuDktrkc76eG/Jvd1ao5hd/ihhyoBlyiK"
+
 
 networks:
   traefik_proxy:
