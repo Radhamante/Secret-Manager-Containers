@@ -65,4 +65,5 @@ services:
     networks:
       - traefik_proxy
     environment:
-      - "GF_PATHS_CONFIG=/etc/grafana/custom.ini"
+      - "GF_SECURITY_ADMIN_USER=${GF_SECURITY_ADMIN_USER}"
+      - "GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD}"
