@@ -1,3 +1,7 @@
 trashmail/data
 traefik/logsTraefik
 traefik/letsencrypt
+
+*.env
+*.log
+monitoring/etc/grafana/custom.ini
