@@ -57,7 +57,6 @@ services:
       - ./etc/grafana/:/etc/grafana/provisioning/datasources
       - ./etc/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml
       - ./etc/dashboards:/etc/grafana/dashboards
-      - ./etc/grafana/custom.ini:/etc/grafana/custom.ini
     depends_on:
       - loki
       - prometheus
@@ -65,4 +64,5 @@ services:
     networks:
       - traefik_proxy
     environment:
-      - "GF_PATHS_CONFIG=/etc/grafana/custom.ini"
+      - "GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}"
+      - "GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}"

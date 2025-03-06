@@ -7,7 +7,7 @@ services:
     container_name: opentrashmail
     restart: unless-stopped
     environment:
-      - DOMAINS=trashmail.radhamante.xyz
+      - DOMAINS=trashmail.radhamante.fr
       - DATEFORMAT=D.M.YYYY HH:mm
       - DISCARD_UNKNOWN=false
       - DELETE_OLDER_THAN_DAYS=30
@@ -24,7 +24,7 @@ services:
       - traefik_proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.trashmail.rule=Host(`trashmail.radhamante.xyz`)"
+      - "traefik.http.routers.trashmail.rule=Host(`trashmail.radhamante.fr`)"
       - "traefik.http.routers.trashmail.entrypoints=websecure"
       - "traefik.http.routers.trashmail.tls=true"
       - "traefik.http.routers.trashmail.tls.certresolver=myresolver"
